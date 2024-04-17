@@ -1,0 +1,298 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main(void) {
+  float total_da_venda[5] = {0}, venda_maior = 0;
+  char sexo[5];
+  int cod_mais_vend[5] = {0};
+  int qnt_itens[5] = {0};
+  int cod_pedido[5] = {0}; 
+  int menu_inicial, menu_principal;
+  int i = 0;  
+  int sair = 0;  
+  int retornarMenuInicial = 0;
+
+  while (!sair) {  
+      i = 0;  
+      menu_inicial = 0;  
+
+      do {
+          printf("\n\n--------------------------------\n");
+          printf("Menu Inicial:\n");
+          printf("1) Cadastrar pedido\n");
+          printf("2) Ir para o menu principal\n");
+          printf("--------------------------------\n");
+          printf("Digite a opção desejada: ");
+          scanf("%d", &menu_inicial);
+          printf("--------------------------------\n");
+
+          switch(menu_inicial) {
+              case 1:
+                  if (i < 5) {  
+                      int pizza = 0;
+                      int codigo, resultado;
+
+                      printf("\nInforme o código do pedido (1 a 10): ");
+                      scanf("%d", &codigo);
+                      resultado = 0;  
+                      for(int j = 0; j < i; j++) {
+                          if(cod_pedido[j] == codigo) {
+                              resultado = 1;  
+                              break;
+                          }
+                      }
+                      while(codigo < 1 || codigo > 10 || resultado) {
+                          if (resultado) {
+                              printf("\nError... Código já foi utilizado!\n");
+                          } else {
+                              printf("\nError... Código inválido!\n");
+                          }
+                          printf("\nInforme o código do pedido (1 a 10): ");
+                          scanf("%d", &codigo);
+                          resultado = 0;
+                          for(int j = 0; j < i; j++) {
+                              if(cod_pedido[j] == codigo) {
+                                  resultado = 1;  
+                                  break;
+                              }
+                          }
+                      }
+                      cod_pedido[i] = codigo;
+
+                      printf("\nInforme o sexo do cliente [m]asculino/[f]eminino/[n]eutro: ");
+                      scanf(" %c", &sexo[i]);
+                      while(sexo[i] != 'm' && sexo[i] != 'f' && sexo[i] != 'n') {
+                          printf("\nError... Sexo inválido!\n");
+                          printf("\nInforme o sexo do cliente [m]asculino/[f]eminino/[n]eutro: ");
+                          scanf(" %c", &sexo[i]);
+                      }
+
+                      printf("\n-Digite o nº correspondente ao sabor escolhido.\n");
+                      do {
+                          printf("\n\t\tSabores-------------------------------------\n");
+                          printf("\t\t1. Pizza de Mussarela - R$ 30,00\n"
+                                 "\t\t2. Pizza de Pepperoni - R$ 35,00\n"
+                                 "\t\t3. Pizza de Margherita - R$ 32,00\n"
+                                 "\t\t4. Pizza de Calabresa - R$ 28,00\n"
+                                 "\t\t5. Pizza de Frango com Catupiry - R$ 36,00\n"
+                                 "\t\t6. Pizza de Quatro Queijos - R$ 38,00\n"
+                                 "\t\t7. Pizza de Bacon com Milho - R$ 34,00\n"
+                                 "\t\t8. Pizza de Vegetariana - R$ 33,00\n"
+                                 "\t\t9. Pizza de Portuguesa - R$ 37,00\n"
+                                 "\t\t10. Pizza de Camarão - R$ 40,00\n");
+                          printf("\t\t--------------------------------------------\n");
+                          printf("\t\tAdicionar mais sabores [(0) para sair]: ");
+                          scanf("%d", &pizza);
+                          printf("\n\t\t----------------------------------------------------\n");
+
+                          if (pizza == 0) {
+                              break;
+                          } else if (pizza < 0) {
+                              printf("\nError... Informe valores positivos\n\n");
+                              continue;
+                          }
+                          switch(pizza) {
+                              case 1:
+                                  total_da_venda[i] += 30;
+                                  qnt_itens[i]++;
+                                  break;
+                              case 2:
+                                  total_da_venda[i] += 35;
+                                  qnt_itens[i]++;
+                                  break;
+                              case 3:
+                                  total_da_venda[i] += 32;
+                                  qnt_itens[i]++;
+                                  break;
+                              case 4:
+                                  total_da_venda[i] += 28;
+                                  qnt_itens[i]++;
+                                  break;
+                              case 5:
+                                  total_da_venda[i] += 36;
+                                  qnt_itens[i]++;
+                                  break;
+                              case 6:
+                                  total_da_venda[i] += 38;
+                                  qnt_itens[i]++;
+                                  break;
+                              case 7:
+                                  total_da_venda[i] += 34;
+                                  qnt_itens[i]++;
+                                  break;
+                              case 8:
+                                  total_da_venda[i] += 33;
+                                  qnt_itens[i]++;
+                                  break;
+                              case 9:
+                                  total_da_venda[i] += 37;
+                                  qnt_itens[i]++;
+                                  break;
+                              case 10:
+                                  total_da_venda[i] += 40;
+                                  qnt_itens[i]++;
+                                  break;
+                              default:
+                                  printf("\nError... Opção inválida!\n\n");
+                          }
+                      } while (pizza != 0);
+                    system("clear");
+                      printf("\nPedido %d - CADASTRADO COM SUCESSO!\n", cod_pedido[i]); 
+                      i++;  
+                  } else {
+                      printf("\nLimite de pedidos atingido.\nIndo para o menu principal...\n");
+                      menu_inicial = 2;  
+                  }
+                  break;
+              case 2:
+                  break;
+              default:
+                  printf("\nOpção inválida. Tente novamente.\n");
+          }
+
+      } while (menu_inicial != 2);  
+
+      menu_principal = 0;  
+
+      do {
+          printf("\n\n--------------------------------\n");
+          printf("Menu Principal:\n");
+          printf("1) Pesquisar um pedido.\n");
+          printf("2) Informar todos os pedidos.\n");
+          printf("3) Pesquisa avançada.\n");
+          printf("4) Retornar ao menu inicial.\n");
+          printf("5) Sair do Programa.\n");
+          printf("--------------------------------\n");
+          printf("Digite a opção desejada: ");
+          scanf("%d", &menu_principal);
+          printf("--------------------------------\n");
+
+          switch(menu_principal) {
+              case 1:
+                  {
+                      int codigo, encontrado = 0;
+                      char opcao;
+
+                      printf("\nDigite o código do pedido que deseja pesquisar: ");
+                      scanf("%d", &codigo);
+
+                      for (int j = 0; j < i; j++) {
+                          if (cod_pedido[j] == codigo) {
+                              printf("\nPedido %d: Total da venda: R$%.2f, Nº de itens: %d, Sexo: %c\n", cod_pedido[j], total_da_venda[j], qnt_itens[j], sexo[j]);
+                              encontrado = 1;
+                              printf("\n-----------------------------------------------------------\n");
+                          }
+                      }
+
+                      if (!encontrado) {
+                          printf("\nNão há pedidos com o código %d.\n", codigo);
+                      }                    
+                      printf("\nDeseja retornar ao menu principal? [s]im/[n]ão: ");
+                      scanf(" %c", &opcao);
+                      if (opcao == 'n' || opcao == 'N') {
+                          menu_principal = 4;  
+                      }
+                  }
+                system("clear");
+                  break;
+              case 2:
+                  for(int j = 0; j < 5; j++){
+                    if(cod_pedido[j] != 0)  
+                        printf("\nPedido: %d - Total da venda: R$%.2f - Nº de itens: %d - Sexo: %c\n", cod_pedido[j], total_da_venda[j], qnt_itens[j], sexo[j]);
+                      }
+                  break;
+              case 3:
+                {
+                  float valorLimite;
+                  int pedidosAbaixoDe40 = 0;
+                  int compradorasMulheres = 0;
+                  float valorTotalHomens = 0.0;
+                  float valorTotalPedidos = 0.0;
+                  int quantidadeTotalItens = 0;
+                  int quantidadeItensSemSexo = 0;
+                  int codigoMaisVendido = -1;
+                  int quantidadeMaisVendido = 0;
+                  printf("\nInforme o valor limite para exibir a quantidade de pedidos acima deste valor: ");
+                  scanf("%f", &valorLimite);
+                  system("clear");
+                  for (int j = 0; j < i; j++) {
+                      if (total_da_venda[j] > valorLimite) {
+                          printf("\nPedido %d - Valor: R$%.2f, Sexo: %c\n", cod_pedido[j], total_da_venda[j], sexo[j]);
+                        printf("----------------------------------------------\n");
+                      }
+
+                      if (total_da_venda[j] < 40) {
+                          pedidosAbaixoDe40++;
+                      }
+
+                      if (sexo[j] == 'f') {
+                          compradorasMulheres++;
+                      }
+
+                      if (sexo[j] == 'm') {
+                          valorTotalHomens += total_da_venda[j];
+                      }
+
+                      valorTotalPedidos += total_da_venda[j];
+                      quantidadeTotalItens += qnt_itens[j];
+
+                      if (sexo[j] == 'n') {
+                          quantidadeItensSemSexo += qnt_itens[j];
+                      }
+
+                      if (codigoMaisVendido == -1 || qnt_itens[j] > quantidadeMaisVendido) {
+                          cod_mais_vend[j] = cod_pedido[j];
+
+                      }
+                  }
+
+                  printf("\nQuantidade de pedidos abaixo de 40 reais: %d\n", pedidosAbaixoDe40);
+                  printf("\nQuantidade de compradoras mulheres: %d\n", compradorasMulheres);
+                  printf("\nValor total comprado pelos homens: R$%.2f\n", valorTotalHomens);
+                  printf("\nValor médio de um pedido: R$%.2f\n", valorTotalPedidos / i);
+                  printf("\nQuantidade total de itens vendidos: %d\n", quantidadeTotalItens);
+                  printf("\nQuantidade de itens comprados por pessoas que preferiram não falar o sexo: %d\n", quantidadeItensSemSexo);
+                  printf("\nCódigos que tiveram mais vendas: ");
+
+                  for(int i= 0; i<5; i++){
+                    if(cod_mais_vend[i] != 0){
+                        if(total_da_venda[i] >= venda_maior){
+                            venda_maior = total_da_venda[i];
+                            codigoMaisVendido = cod_mais_vend[i];
+                            printf("Cód %d, ", codigoMaisVendido);
+                        }
+                    }
+                  }
+
+                  char opcaoRetorno;
+                  printf("\n------------------------------------------------\n");
+                  printf("Deseja voltar ao menu anterior? [s]im/[n]ão: ");
+                  scanf(" %c", &opcaoRetorno);
+                  printf("------------------------------------------------\n");
+
+
+                  if (opcaoRetorno == 'n' || opcaoRetorno == 'N') {
+                    printf("\t-Finalizando o programa...\n");
+                      return 0;            
+                  } else {
+                    retornarMenuInicial = 1;
+                  }
+                }
+                break;
+              case 4:
+                  retornarMenuInicial = 1;
+                  break;
+              case 5:
+                  sair = 1;
+                  printf("Programa encerrado.\n");
+                  break;
+              default:
+                  printf("\nOpção inválida. Tente novamente.\n");
+          }
+
+      } while (menu_principal != 4 && menu_principal != 5);  
+ }
+
+return(0);
+}
